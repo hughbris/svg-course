@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<svg xmlns="http://www.w3.org/2000/svg">
+	<style type="text/css"><![CDATA[
+		line {
+			stroke-width: 15;
+			stroke: lightblue;
+			stroke-linecap: butt;
+		}
+		ellipse {
+			stroke-width: 3;
+			fill: yellow;
+	]]></style>
+	<line x1="10%" y1="35%" x2="90%" y2="35%" /> <!-- middle -->
+	<ellipse cx="20%" cy="50%" rx="10%" ry="50%" /> <!-- middle -->
+	<ellipse cx="50%" cy="50%" rx="10%" ry="50%" /> <!-- left -->
+	<ellipse cx="80%" cy="50%" rx="10%" ry="50%" /> <!-- right -->
+	<line x1="10%" y1="10%" x2="90%" y2="10%" /> <!-- top -->
+	<line x1="10%" y1="60%" x2="90%" y2="60%" /> <!-- bottom -->
+</svg>
