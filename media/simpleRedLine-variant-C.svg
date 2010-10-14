@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<svg xmlns="http://www.w3.org/2000/svg">
+	<style type="text/css"><![CDATA[
+		line {
+			stroke-width: 20;
+		}
+		#under {
+			stroke: red;
+			stroke-linecap: butt;
+		}
+		#over {
+			stroke: yellow;
+			stroke-dasharray: 2,5;
+		}
+	]]></style>
+	<line id="under" x1="5" y1="5" x2="90" y2="90" />
+	<line id="over" x1="5" y1="5" x2="90" y2="90" />
+</svg>

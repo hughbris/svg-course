@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<svg xmlns="http://www.w3.org/2000/svg" >
+	<line x1="5" y1="5" stroke="red" x2="90" y2="90" stroke-width="10" stroke-linecap="round" />
+	<line x1="5" y1="5" stroke="magenta" x2="90" y2="90" stroke-width="10" stroke-dasharray="2,8,2" />
+</svg>
