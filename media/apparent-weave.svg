@@ -17,9 +17,9 @@
 		}
 	]]></style>
 	<ellipse cx="450" cy="300" rx="100" ry="250" /> <!-- middle -->
-	<rect id="stripe2" x="0" y="275" height="50" width="900" /> <!-- middle -->
-	<ellipse cx="200" cy="300" rx="100" ry="250" /> <!-- left -->
-	<ellipse cx="700" cy="300" rx="100" ry="250" /> <!-- right -->
 	<rect x="0" y="175" height="50" width="900" /> <!-- top -->
 	<rect x="0" y="375" height="50" width="900" /> <!-- bottom -->
+	<ellipse cx="200" cy="300" rx="100" ry="250" /> <!-- left -->
+	<ellipse cx="700" cy="300" rx="100" ry="250" /> <!-- right -->
+	<rect id="stripe2" x="0" y="275" height="50" width="900" /> <!-- middle -->
 </svg>
