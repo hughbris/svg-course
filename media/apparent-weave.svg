@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <svg xmlns="http://www.w3.org/2000/svg">
-	<title>MY TITLE FIXME</title>
-	<desc>MY DESC FIXME</desc>
+	<title>Apparent Weaved pattern</title>
+	<desc>Part 3 of Week 1 assignment by Hugh Barnes towards W3C SVG course, October 2010.</desc>
 	<style type="text/css"><![CDATA[
 		ellipse {
 			stroke-width: 3;
