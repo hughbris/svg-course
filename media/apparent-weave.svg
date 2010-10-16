@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <svg xmlns="http://www.w3.org/2000/svg">
+	<title>MY TITLE FIXME</title>
+	<desc>MY DESC FIXME</desc>
 	<style type="text/css"><![CDATA[
 		ellipse {
 			stroke-width: 3;
@@ -12,14 +14,12 @@
 			stroke-width: 5;
 			fill: cyan;
 		}
-		#stripe2 {
-			/* stroke-dasharray: 40%,20%; */
-		}
 	]]></style>
 	<ellipse cx="450" cy="300" rx="100" ry="250" /> <!-- middle -->
 	<rect x="0" y="175" height="50" width="900" /> <!-- top -->
 	<rect x="0" y="375" height="50" width="900" /> <!-- bottom -->
 	<ellipse cx="200" cy="300" rx="100" ry="250" /> <!-- left -->
 	<ellipse cx="700" cy="300" rx="100" ry="250" /> <!-- right -->
-	<rect id="stripe2" x="0" y="275" height="50" width="900" /> <!-- middle -->
+	<rect x="0" y="275" height="50" width="350" /> <!-- mid-left -->
+	<rect x="550" y="275" height="50" width="350" /> <!-- mid-right -->
 </svg>
