@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<svg xmlns="http://www.w3.org/2000/svg">
+	<title>Experiments in text font support: what's a font family?</title>
+	<desc>Part 4 of Week 1 assignment by Hugh Barnes towards W3C SVG course, October 2010.</desc>
+	<style type="text/css"><![CDATA[
+	text {
+		font-size: 43pt;
+	}
+	#f1 {
+		font-family: serif;
+	}
+	#f2 {
+		font-family: garamond;
+	}
+	#f3 {
+		font-family: arial;
+	}
+	#f4 {
+		font-family: monospace;
+	}
+	#f5 {
+		font-family: cursive;
+	}
+	#f6 {
+		font-family: courier;
+	}
+	#f7 {
+		font-family: verdana;
+	}
+	#f8 {
+		font-family: Palatino;
+	}
+	]]></style> <!-- Verdana -->
+	<!-- serif, garamond, arial, monospace, cursive and courier -->
+	<text id="f1" x="20px" y="55px">Hello Serif!</text>
+	<text id="f2" x="20px" y="110px">Hello Garamond!</text>
+	<text id="f3" x="20px" y="165px">Hello Arial!</text>
+	<text id="f4" x="20px" y="210px">Hello Monospace!</text>
+	<text id="f5" x="20px" y="275px">Hello Cursive!</text>
+	<text id="f6" x="20px" y="330px">Hello Courier!</text>
+	<text id="f7" x="20px" y="385px">Hello Verdana!</text>
+	<text id="f8" x="20px" y="440px">Hello Palatino!</text>
+</svg>
