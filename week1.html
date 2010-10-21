@@ -31,7 +31,8 @@
 			padding: 1em;
 		}
 		object {
-			padding-top: 1em;
+			padding-top: 0.5em;
+			display: block;
 		}
 	</style>
 </head>
@@ -88,7 +89,7 @@
 		<p class="challenge">Create an SVG document that looks, as much as you can make it, like the image depicted.</p>
 		<p class="response">
 			This seems to do the trick. I assumed the stripes were lines at first and the effect was a combination of layering and dasharray. However, as <code>&lt;rect></code> elements, the fill effect can be achieved and then the only option appeared to be to create two rects appearing as one. I assumed this wasn't correct as the curve from the middle ellipse would be lost, but looking closely at the original it seems to do the same thing. In a way, this adds to the "weave" illusion. What a great task, and I hereby declare it done:
-			<object height="100%" id="sigourney" type="image/svg+xml" data="media/apparent-weave.svg">
+			<object height="100%" width="100%" id="sigourney" type="image/svg+xml" data="media/apparent-weave.svg">
 				<img src="media/apparent-weave.png" alt="Tricky pattern of three ellipses with lines apparently weaved through." />
 			</object>
 		</p>
@@ -100,7 +101,7 @@
 		<div class="response">
 			<p>I preface this response by stating that web browser support is the least interesting aspect of this assignment for me, and I've been blissfully largely disinterested in fonts, well, forever. I don't really know how many of these font families are supposed to look. Even so, I understand it's important to appreciate that text fonts are poorly supported in current implementations. I think that's the point here.</p>
 			<p>This is a rendering the SVG file I worked from. It's arguably overkill to use CSS to set the fonts in this case, but I did:
-				<object height="100%" id="fonts" type="image/svg+xml" data="media/text-experiment.svg">
+				<object height="100%" width="100%" id="fonts" type="image/svg+xml" data="media/text-experiment.svg">
 					<img src="media/text-experiment.png" alt="An experiment of text rendering with 8 font families" />
 				</object>
 			</p>
