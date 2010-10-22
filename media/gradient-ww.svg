@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<svg
+	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	>
+	<title>The W gradient</title>
+	<desc>Part 1 of Week 2 assignment by Hugh Barnes towards W3C SVG course, October 2010.</desc>
+	<style type="text/css"><![CDATA[
+	text {
+		font-size: 100pt;
+	}
+	#w {
+		font-family: "Century Schoolbook Bold", serif; /* FIXME */
+		stroke: black;
+		fill: url(#rg);
+	}
+	]]></style>
+
+	<linearGradient id="rg" >
+		<stop offset="0" stop-color="red"/>
+		<stop offset="1" stop-color="forestgreen"/>
+	</linearGradient>
+
+	<text id="w" x="100" y="100" transform="rotate(20)">w</text>
+	<use xlink:href="#w" transform="translate(416,0) scale(-1,1)" />
+
+</svg>
