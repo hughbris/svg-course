@@ -2,6 +2,7 @@
 <svg
 	xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
+	onload="surround(document.getElementById('ww'));"
 	>
 	<title>The WW gradient</title>
 	<desc>Part 2 of Week 2 assignment by Hugh Barnes towards W3C SVG course, October 2010.</desc>
@@ -16,12 +17,36 @@
 	}
 	]]></style>
 
+	<script type="application/ecmascript"><![CDATA[
+		/* function getBBoxAsRectElement from http://my.opera.com/MacDev_ed/blog/2009/01/21/getting-boundingbox-of-svg-elements */
+		var svgns = "http://www.w3.org/2000/svg";
+		function getBBoxAsRectElement(elm)
+		{
+		  var bb = elm.getBBox();
+		  var rect = document.createElementNS(svgns, "rect");
+		  rect.x.baseVal.value = bb.x;
+		  rect.y.baseVal.value = bb.y;
+		  rect.width.baseVal.value = bb.width;
+		  rect.height.baseVal.value = bb.height;
+		  return rect;
+		}
+		function surround(nd) {
+			var bbox=getBBoxAsRectElement(nd);
+			bbox.setAttribute("fill","none");
+			bbox.setAttribute("stroke","black");
+			bbox.setAttribute("stroke-width","1");
+			document.documentElement.appendChild(bbox);
+		}
+	]]></script>
+
 	<linearGradient id="rg" >
 		<stop offset="0" stop-color="red"/>
 		<stop offset="1" stop-color="forestgreen"/>
 	</linearGradient>
 
-	<text id="w" x="100" y="100" transform="rotate(20)">w</text>
-	<use xlink:href="#w" transform="translate(416,0) scale(-1,1)" />
+	<g id="ww">
+		<text id="w" x="100" y="100" transform="rotate(10,100,100)">w</text>
+		<use xlink:href="#w" transform="translate(130,20) rotate(-20,100,100)" />
+	</g>
 
 </svg>
