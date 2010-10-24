@@ -2,7 +2,7 @@
 <svg
 	xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
-	onload="drawOutline(document.getElementById('ww'),{'class':'outline'});"
+	onload="drawOutline(document.getElementById('wow'),{'class':'outline'});"
 	>
 	<title>The WW gradient</title>
 	<desc>Part 2 of Week 2 assignment by Hugh Barnes towards W3C SVG course, October 2010.</desc>
@@ -22,7 +22,7 @@
 	}
 	.outline {
 		stroke-width: 2;
-		fill: none;
+		fill: url(#rgr);
 		stroke: black;
 	}
 	]]></style>
@@ -62,7 +62,8 @@
 			}
 			// still not sure if the above-type styles (esp fill:none) should be set here and require overriding or allow a blank slate for styling
 
-			nd.parentNode.appendChild(bbox);
+//			nd.parentNode.appendChild(bbox);
+nd.parentNode.insertBefore(bbox,document.getElementById('wow'));
 		}
 
 	]]></script>
@@ -79,10 +80,16 @@
 			<stop offset="1" stop-color="red"/>
 		</linearGradient>
 
+		<linearGradient id="rgr" >
+			<stop offset="0" stop-color="red"/>
+			<stop offset="0.5" stop-color="forestgreen"/>
+			<stop offset="1" stop-color="red"/>
+		</linearGradient>
+
 		<text id="w" class="w" x="100" y="100">w</text>
 	</defs>
 
-	<g id="ww">
+	<g id="wow">
 		<use xlink:href="#w" id="w1" transform="rotate(10,100,100)" />
 		<use xlink:href="#w" id="w2" transform="translate(130,20),rotate(-10,100,100)" />
 	</g>
