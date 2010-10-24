@@ -2,7 +2,7 @@
 <svg
 	xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
-	onload="surround(document.getElementById('ww'));"
+	onload="drawOutline(document.getElementById('ww'));"
 	>
 	<title>The WW gradient</title>
 	<desc>Part 2 of Week 2 assignment by Hugh Barnes towards W3C SVG course, October 2010.</desc>
@@ -27,20 +27,24 @@
 		var svgns = "http://www.w3.org/2000/svg";
 		function getBBoxAsRectElement(elm)
 		{
-		  var bb = elm.getBBox();
-		  var rect = document.createElementNS(svgns, "rect");
-		  rect.x.baseVal.value = bb.x;
-		  rect.y.baseVal.value = bb.y;
-		  rect.width.baseVal.value = bb.width;
-		  rect.height.baseVal.value = bb.height;
-		  return rect;
+			var bb = elm.getBBox();
+			var rect = document.createElementNS(svgns, "rect");
+			rect.x.baseVal.value = bb.x;
+			rect.y.baseVal.value = bb.y;
+			rect.width.baseVal.value = bb.width;
+			rect.height.baseVal.value = bb.height;
+			return rect;
 		}
-		function surround(nd) {
+		function drawOutline(nd,id,classNames) { /* TODO: classNames is not implemented, lots of options could be provided here */
 			var bbox=getBBoxAsRectElement(nd);
 			bbox.setAttribute("fill","none");
 			bbox.setAttribute("stroke","black");
 			bbox.setAttribute("stroke-width","1");
-			document.documentElement.appendChild(bbox);
+			/* provide styling/identifying hooks in case all outlines shouldn't be the same */
+			if (typeof(id) != "undefined") {
+				bbox.setAttribute("id",id);
+			}
+			nd.parentNode.appendChild(bbox);
 		}
 	]]></script>
 
