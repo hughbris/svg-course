@@ -2,7 +2,7 @@
 <svg
 	xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
-	onload="drawOutline(document.getElementById('ww'));"
+	onload="drawOutline(document.getElementById('ww'),{'class':'outline'});"
 	>
 	<title>The WW gradient</title>
 	<desc>Part 2 of Week 2 assignment by Hugh Barnes towards W3C SVG course, October 2010.</desc>
@@ -20,9 +20,15 @@
 	#w2 {
 		fill: url(#gr);
 	}
+	.outline {
+		stroke-width: 2;
+		fill: none;
+		stroke: black;
+	}
 	]]></style>
 
 	<script type="application/ecmascript"><![CDATA[
+
 		/* function getBBoxAsRectElement from http://my.opera.com/MacDev_ed/blog/2009/01/21/getting-boundingbox-of-svg-elements */
 		var svgns = "http://www.w3.org/2000/svg";
 		function getBBoxAsRectElement(elm)
@@ -35,17 +41,30 @@
 			rect.height.baseVal.value = bb.height;
 			return rect;
 		}
-		function drawOutline(nd,id,classNames) { /* TODO: classNames is not implemented, lots of options could be provided here */
-			var bbox=getBBoxAsRectElement(nd);
-			bbox.setAttribute("fill","none");
-			bbox.setAttribute("stroke","black");
-			bbox.setAttribute("stroke-width","1");
-			/* provide styling/identifying hooks in case all outlines shouldn't be the same */
-			if (typeof(id) != "undefined") {
-				bbox.setAttribute("id",id);
+
+		function drawOutline(nd,attrs) { /* TODO: classNames is not implemented, lots of options could be provided here */
+			if (arguments.length == 1) {
+				attrs = {}; 
 			}
+
+			var bbox=getBBoxAsRectElement(nd);
+
+			/* provide styling/identifying hooks (and indeed any other attributes, why not?)  */
+			for(var name in attrs) {
+				bbox.setAttribute(name,attrs[name]);
+			}
+
+			if (typeof(attrs['class']) == "undefined") {
+				/* kind of making assumptions here but there should be something that renders by default */
+				bbox.setAttribute("fill","none");
+				bbox.setAttribute("stroke","black");
+				bbox.setAttribute("stroke-width","1");
+			}
+			// still not sure if the above-type styles (esp fill:none) should be set here and require overriding or allow a blank slate for styling
+
 			nd.parentNode.appendChild(bbox);
 		}
+
 	]]></script>
 
 	<defs>
