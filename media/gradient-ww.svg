@@ -10,10 +10,15 @@
 	text {
 		font-size: 100pt;
 	}
-	#w {
+	.w {
 		font-family: "Century Schoolbook Bold", serif; /* FIXME */
 		stroke: black;
+	}
+	#w1 {
 		fill: url(#rg);
+	}
+	#w2 {
+		fill: url(#gr);
 	}
 	]]></style>
 
@@ -39,14 +44,23 @@
 		}
 	]]></script>
 
-	<linearGradient id="rg" >
-		<stop offset="0" stop-color="red"/>
-		<stop offset="1" stop-color="forestgreen"/>
-	</linearGradient>
+	<defs>
+		<linearGradient id="rg" >
+			<stop offset="0" stop-color="red"/>
+			<stop offset="1" stop-color="forestgreen"/>
+		</linearGradient>
+
+		<linearGradient id="gr" >
+			<stop offset="0" stop-color="forestgreen"/>
+			<stop offset="1" stop-color="red"/>
+		</linearGradient>
+
+		<text id="w" class="w" x="100" y="100">w</text>
+	</defs>
 
 	<g id="ww">
-		<text id="w" x="100" y="100" transform="rotate(10,100,100)">w</text>
-		<use xlink:href="#w" transform="translate(130,20) rotate(-20,100,100)" />
+		<use xlink:href="#w" id="w1" transform="rotate(10,100,100)" />
+		<use xlink:href="#w" id="w2" transform="translate(130,20),rotate(-10,100,100)" />
 	</g>
 
 </svg>
