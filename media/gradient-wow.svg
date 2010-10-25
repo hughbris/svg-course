@@ -4,7 +4,7 @@
 	xmlns:xlink="http://www.w3.org/1999/xlink"
 	onload="drawOutline(document.getElementById('wow'),{'class':'outline'});"
 	>
-	<title>The WW gradient</title>
+	<title>The WoW gradient</title>
 	<desc>Part 2 of Week 2 assignment by Hugh Barnes towards W3C SVG course, October 2010.</desc>
 	<style type="text/css"><![CDATA[
 	text {
@@ -15,17 +15,22 @@
 		stroke: black;
 	}
 	#w1 {
-		fill: url(#rg);
+		fill: url(#gyr);
 	}
 	#w2 {
-		fill: url(#gr);
+		fill: url(#ryg);
 	}
 	.outline {
 		stroke-width: 2;
-		fill: url(#rgr);
+		fill: url(#rygyr);
 		stroke: black;
 	}
 	]]></style>
+
+	<!-- 
+		Comments draft:
+		An apparent surprising trick here has been to get the gradient fill within the letters after adding the background fill. When I set the fill no a non-gradient (colour), it renders, so it seems it's more than an element ordering issue. Stop-opacity on w class has no effect as expected. Is it a firefox bug? Nothing on google (but that is not conclusive). Then I figured it. I need to be looking more closely because my fill in the letters was the wrong way around, so it was the same as its background and of course blends in perfectly. I also notice when I fix this that there needs to be a yellow stop in the middle.
+	-->
 
 	<script type="application/ecmascript"><![CDATA[
 
@@ -69,21 +74,22 @@ nd.parentNode.insertBefore(bbox,document.getElementById('wow'));
 	]]></script>
 
 	<defs>
-		<linearGradient id="rg" >
-			<stop offset="0" stop-color="red"/>
-			<stop offset="1" stop-color="forestgreen"/>
+		<linearGradient id="ryg" >
+			<stop offset="0" stop-color="red" />
+			<stop offset="1" stop-color="forestgreen" />
 		</linearGradient>
 
 		<!-- suspect I can do this reversal of the above gradient with Javascript but that's for another day -->
-		<linearGradient id="gr" >
-			<stop offset="0" stop-color="forestgreen"/>
-			<stop offset="1" stop-color="red"/>
+		<linearGradient id="gyr" >
+			<stop offset="0" stop-color="forestgreen" />
+			<stop offset="0.5" stop-color="yellow" />
+			<stop offset="1" stop-color="red" />
 		</linearGradient>
 
-		<linearGradient id="rgr" >
-			<stop offset="0" stop-color="red"/>
-			<stop offset="0.5" stop-color="forestgreen"/>
-			<stop offset="1" stop-color="red"/>
+		<linearGradient id="rygyr" >
+			<stop offset="0" stop-color="red" />
+			<stop offset="0.5" stop-color="forestgreen" />
+			<stop offset="1" stop-color="red" />
 		</linearGradient>
 
 		<text id="w" class="w" x="100" y="100">w</text>
