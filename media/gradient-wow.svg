@@ -35,7 +35,7 @@
 	<script type="application/ecmascript"><![CDATA[
 
 		/* function getBBoxAsRectElement from http://my.opera.com/MacDev_ed/blog/2009/01/21/getting-boundingbox-of-svg-elements */
-		var svgns = "http://www.w3.org/2000/svg";
+		var svgns = document.documentElement.namespaceURI; //this line modified slightly so not hardcoded :)
 		function getBBoxAsRectElement(elm)
 		{
 			var bb = elm.getBBox();
@@ -120,6 +120,9 @@
 	<g id="wow">
 		<use xlink:href="#w" id="w1" transform="rotate(10,100,100)" />
 		<use xlink:href="#w" id="w2" transform="translate(130,20),rotate(-10,100,100)" />
+		<!--  <text class="o" id="TMP" x="180" y="110">o</text> transform="rotate(90,240,100)" -->
 	</g>
+
+	<!-- <script>alert(document.getElementById('TMP').getBBox().x + '/' + document.getElementById('TMP').getBBox().y);</script> -->
 
 </svg>
