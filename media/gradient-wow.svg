@@ -2,10 +2,10 @@
 <svg
 	xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
-	onload="drawOutline(document.getElementById('wow'),{'class':'outline'});"
+	onload="drawOutlineBefore(document.getElementById('wow'),{'class':'outline'});"
 	>
 	<title>The WoW gradient</title>
-	<desc>Part 2 of Week 2 assignment by Hugh Barnes towards W3C SVG course, October 2010.</desc>
+	<desc>Part 3 of Week 2 assignment by Hugh Barnes towards W3C SVG course, October 2010.</desc>
 	<style type="text/css"><![CDATA[
 	text {
 		font-size: 100pt;
@@ -47,10 +47,9 @@
 			return rect;
 		}
 
-		function drawOutline(nd,attrs) { /* TODO: classNames is not implemented, lots of options could be provided here */
-			if (arguments.length == 1) {
-				attrs = {}; 
-			}
+		/* returns a <rect/> element which is an outline of the supplied element nd, and with any attributes provided in the "associative array" supplied as attrs */
+		function getOutline(nd,attrs) { //attrs: too python? :D
+			attrs = ( arguments.length == 1 ? {} : attrs);
 
 			var bbox=getBBoxAsRectElement(nd);
 
@@ -67,8 +66,28 @@
 			}
 			// still not sure if the above-type styles (esp fill:none) should be set here and require overriding or allow a blank slate for styling
 
-//			nd.parentNode.appendChild(bbox);
-nd.parentNode.insertBefore(bbox,document.getElementById('wow'));
+			return bbox;
+		}
+
+		/* draws an outline of a node after it */
+		/* this and drawOutlineBefore might have been done as parameters but I don't want to be faffing around with messy optional parameter handling */
+		function drawOutlineAfter(nd,attrs) {
+			attrs = ( arguments.length == 1 ? {} : attrs);
+			var outline = getOutline(nd,attrs);
+			var nextSiblingNode = nd.nextSibling;
+			if (nextSiblingNode) {
+				nd.parentNode.insertBefore(outline,nextSiblingNode);  // just in case it matters that this is appended directly after nd
+			}
+			else {
+				nd.parentNode.appendChild(outline);
+			}
+		}
+
+		/* draws an outline of a node before it */
+		function drawOutlineBefore(nd,attrs) {
+			attrs = ( arguments.length == 1 ? {} : attrs);
+			var outline = getOutline(nd,attrs);
+			nd.parentNode.insertBefore(outline,nd);
 		}
 
 	]]></script>
@@ -76,6 +95,7 @@ nd.parentNode.insertBefore(bbox,document.getElementById('wow'));
 	<defs>
 		<linearGradient id="ryg" >
 			<stop offset="0" stop-color="red" />
+			<stop offset="0.5" stop-color="yellow" />
 			<stop offset="1" stop-color="forestgreen" />
 		</linearGradient>
 
@@ -88,7 +108,9 @@ nd.parentNode.insertBefore(bbox,document.getElementById('wow'));
 
 		<linearGradient id="rygyr" >
 			<stop offset="0" stop-color="red" />
+			<stop offset="0.25" stop-color="yellow" />
 			<stop offset="0.5" stop-color="forestgreen" />
+			<stop offset="0.75" stop-color="yellow" />
 			<stop offset="1" stop-color="red" />
 		</linearGradient>
 
