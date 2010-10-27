@@ -90,6 +90,14 @@
 			nd.parentNode.insertBefore(outline,nd);
 		}
 
+		function getCentroid(nd) {
+			var bb = nd.getBBox();
+			var centroid = document.documentElement.createSVGPoint();
+			centroid.x = bb.x + bb.width / 2;
+			centroid.y = bb.y + bb.height / 2;
+			return centroid;
+		}
+
 	]]></script>
 
 	<defs>
@@ -120,9 +128,9 @@
 	<g id="wow">
 		<use xlink:href="#w" id="w1" transform="rotate(10,100,100)" />
 		<use xlink:href="#w" id="w2" transform="translate(130,20),rotate(-10,100,100)" />
-		<!--  <text class="o" id="TMP" x="180" y="110">o</text> transform="rotate(90,240,100)" -->
+		<text class="o" id="TMP" x="180" y="110">o</text> <!-- transform="rotate(90,240,100)" -->
 	</g>
 
-	<!-- <script>alert(document.getElementById('TMP').getBBox().x + '/' + document.getElementById('TMP').getBBox().y);</script> -->
+	<script>alert(getCentroid(document.getElementById('TMP')).y);</script>
 
 </svg>
