@@ -10,9 +10,6 @@
 	text {
 		font-size: 100pt;
 	}
-	.o {
-		font-size: 70pt;
-	}
 	.w {
 		font-family: "Century Schoolbook Bold", serif; /* FIXME */
 		stroke: black;
@@ -28,6 +25,10 @@
 		fill: url(#rygyr);
 		stroke: black;
 	}
+	.gridline {
+		stroke-width: 0.25;
+		stroke: gray;
+	}
 	]]></style>
 
 	<!-- 
@@ -42,7 +43,7 @@
 	<script type="application/ecmascript"><![CDATA[
 
 		/* function getBBoxAsRectElement from http://my.opera.com/MacDev_ed/blog/2009/01/21/getting-boundingbox-of-svg-elements */
-		var svgns = document.documentElement.namespaceURI; //this line modified slightly so not hardcoded :)
+		var svgns = document.rootElement.namespaceURI; //this line modified slightly so not hardcoded :)
 		function getBBoxAsRectElement(elm)
 		{
 			var bb = elm.getBBox();
@@ -105,6 +106,31 @@
 			return centroid;
 		}
 
+		/* hey, how about some javascript to overlay gridlines for dev/debugging ?? */
+		function drawGrid(nd,interval) { // class, labels
+			var bb = nd.getBBox();
+			/* warp */
+			for (var xi = bb.x + interval; xi < bb.x + bb.width; xi += interval) {
+				var gridline = document.createElementNS(svgns, "line");
+				gridline.setAttribute("x1",xi);
+				gridline.setAttribute("y1",bb.y);
+				gridline.setAttribute("x2",xi);
+				gridline.setAttribute("y2",bb.y + bb.height);
+				gridline.setAttribute("class","gridline");
+				nd.appendChild(gridline); // hmm, never append to another node like the parent??
+			}
+			/* weft */
+			for (var yi = bb.y + interval; yi < bb.y + bb.height; yi += interval) {
+				var gridline = document.createElementNS(svgns, "line");
+				gridline.setAttribute("x1",bb.x);
+				gridline.setAttribute("y1",yi);
+				gridline.setAttribute("x2",bb.x + bb.width);
+				gridline.setAttribute("y2",yi);
+				gridline.setAttribute("class","gridline");
+				nd.appendChild(gridline);
+			}
+		}
+
 	]]></script>
 
 	<defs>
@@ -135,9 +161,11 @@
 	<g id="wow">
 		<use xlink:href="#w" id="w1" transform="rotate(10,100,100)" />
 		<use xlink:href="#w" id="w2" transform="translate(130,20),rotate(-10,100,100)" />
-		<text class="o" id="TMP" x="192" y="110">o</text> <!-- transform="rotate(90,240,100)" -->
+		<!-- <ellipse id="TMP" cx="220" cy="90" rx="30" ry="20" stroke-width="2" stroke="black" /> --> <!-- nope, shape is wrong, seems we need an elliptical arc, lucky I stumbled across it in the Primer -->
+		<!-- 220,95 is about the centre of where I want to be -->
+		<path d="M 205,85 A 260,105 0 0,1 240,110" stroke-width="2" stroke="black" fill="none" />
 	</g>
 
-	<script>alert(getCentroid(document.getElementById('TMP')).y);</script>
+	<script>drawGrid(document.getElementById('wow'),10);</script>
 
 </svg>
