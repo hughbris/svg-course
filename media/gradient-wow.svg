@@ -29,6 +29,10 @@
 		stroke-width: 0.25;
 		stroke: gray;
 	}
+	.gridlabel {
+		stroke: gray;
+		font-size: 20pt;
+	}
 	]]></style>
 
 	<!-- 
@@ -111,13 +115,23 @@
 			var bb = nd.getBBox();
 			/* warp */
 			for (var xi = bb.x + interval; xi < bb.x + bb.width; xi += interval) {
-				var gridline = document.createElementNS(svgns, "line");
+				var gridline = document.createElementNS(svgns, "line"); //CHECKME: still looking for an SVG DOM method to do this and set attributes more compactly
 				gridline.setAttribute("x1",xi);
 				gridline.setAttribute("y1",bb.y);
 				gridline.setAttribute("x2",xi);
 				gridline.setAttribute("y2",bb.y + bb.height);
-				gridline.setAttribute("class","gridline");
+				gridline.setAttribute("class","gridline x");
 				nd.appendChild(gridline); // hmm, never append to another node like the parent??
+
+				/* label */
+				//FIXME - not working yet /*
+				var label = document.createElementNS(svgns, "line");
+				label.setAttribute("x",xi);
+				label.setAttribute("y",bb.y - 10); //FIXME: unhardcode
+				label.setAttribute("class","gridlabel x");
+				label.appendChild(document.createTextNode(xi));
+				nd.parentNode.appendChild(label);
+				*/
 			}
 			/* weft */
 			for (var yi = bb.y + interval; yi < bb.y + bb.height; yi += interval) {
@@ -126,7 +140,7 @@
 				gridline.setAttribute("y1",yi);
 				gridline.setAttribute("x2",bb.x + bb.width);
 				gridline.setAttribute("y2",yi);
-				gridline.setAttribute("class","gridline");
+				gridline.setAttribute("class","gridline y");
 				nd.appendChild(gridline);
 			}
 		}
