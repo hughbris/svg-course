@@ -10,6 +10,9 @@
 	text {
 		font-size: 100pt;
 	}
+	.o {
+		font-size: 70pt;
+	}
 	.w {
 		font-family: "Century Schoolbook Bold", serif; /* FIXME */
 		stroke: black;
@@ -30,6 +33,10 @@
 	<!-- 
 		Comments draft:
 		An apparent surprising trick here has been to get the gradient fill within the letters after adding the background fill. When I set the fill no a non-gradient (colour), it renders, so it seems it's more than an element ordering issue. Stop-opacity on w class has no effect as expected. Is it a firefox bug? Nothing on google (but that is not conclusive). Then I figured it. I need to be looking more closely because my fill in the letters was the wrong way around, so it was the same as its background and of course blends in perfectly. I also notice when I fix this that there needs to be a yellow stop in the middle.
+		Interesting how I'm solving all my placement problems with the SVG DOM and javascript.
+		The O is diffcult to place and I don't even have the font right yet, which will change it all. Wonder if, as well as calculating a centroid, I can calculate its bottom to snap with the bbox/outline bottom.
+		I think with no x and y arguments, the rotate transform should default to the centroid of the object, doesn't seem to be the case (?) but very hard to be sure from the spec and research.
+		Thinking I might need to use two ellipses instead of a real O. O would be more semantically correct, but we have already messed up natural reading by making the order of elements read "WWO".
 	-->
 
 	<script type="application/ecmascript"><![CDATA[
@@ -128,7 +135,7 @@
 	<g id="wow">
 		<use xlink:href="#w" id="w1" transform="rotate(10,100,100)" />
 		<use xlink:href="#w" id="w2" transform="translate(130,20),rotate(-10,100,100)" />
-		<text class="o" id="TMP" x="180" y="110">o</text> <!-- transform="rotate(90,240,100)" -->
+		<text class="o" id="TMP" x="192" y="110">o</text> <!-- transform="rotate(90,240,100)" -->
 	</g>
 
 	<script>alert(getCentroid(document.getElementById('TMP')).y);</script>
