@@ -190,6 +190,13 @@
 			<stop offset="1" stop-color="red" />
 		</linearGradient>
 
+		<radialGradient id="rad-gyr">
+			<stop offset="0" stop-color="forestgreen" />
+			<stop offset="0.6" stop-color="forestgreen" />
+			<stop offset="0.8" stop-color="yellow" />
+			<stop offset="1" stop-color="red" />
+		</radialGradient>
+
 		<text id="w" class="w" x="100" y="100">w</text>
 	</defs>
 
@@ -201,15 +208,23 @@
 	</g>
 
 	<!-- TODO: put this back inside #wow -->
-	<g id="o-outer" class="earc outer">
-		<path d="M 208,85 A 30,15 0 0,1 235,113" stroke-width="1" stroke="black" fill="none" />
-		<path d="M 208,85 A 30,15 0 0,0 235,113" stroke-width="1" stroke="red" fill="none" />
+<!--
+	<g id="o-outer" class="earc outer" fill="url(#rad-gyr)">
+		<path d="M 208,85 A 30,15 0 0,1 235,113" stroke-width="1" stroke="black" />
+		<path d="M 208,85 A 30,15 0 0,0 235,113" stroke-width="1" stroke="red" />
 	</g>
+-->
+	<!-- more compactly .. -->
+	<path id="o-outer" class="earc outer" fill="url(#rad-gyr)" d="M 208,85 A 30,15 0 0,1 235,113 A 30,15 0 0,1 208,85" stroke-width="1" stroke="black" />
 
+<!--
 	<g id="o-inner" class="earc inner">
 		<path d="M 213,92 A 15,8 0 0,1 230,106" stroke-width="1" stroke="green" fill="none" />
 		<path d="M 213,92 A 15,8 0 0,0 230,106" stroke-width="1" stroke="blue" fill="none" />
 	</g>
+-->
+	<!-- more compactly .. -->
+	<path id="o-inner" class="earc inner" fill="none" d="M 213,92 A 15,8 0 0,1 230,106 A 15,8 0 0,1 213,92" stroke-width="1" stroke="black" />
 
 	<script>drawGrid(document.getElementById('wow'),10);</script>
 
