@@ -30,7 +30,7 @@
 		stroke: gray;
 	}
 	.gridlabel {
-		stroke: black;
+		stroke: red; /* FIXME: so I can notice it */
 		font-size: 20pt;
 	}
 	]]></style>
@@ -125,16 +125,15 @@
 
 				/* label */
 				//FIXME - not working yet 
-/*
-				var label = document.createElementNS(svgns, "line");
+				var label = document.createElementNS(svgns, "text");
 				label.setAttribute("x",xi);
 				label.setAttribute("y",bb.y + 10); //FIXME: unhardcode
 				label.setAttribute("class","gridlabel x");
 				label.appendChild(document.createTextNode(xi));
 				//nd.parentNode.appendChild(label); - this seems to be unsafe outside the bbox
 				nd.appendChild(label);
-*/
 			}
+
 			/* weft */
 			for (var yi = bb.y + interval; yi < bb.y + bb.height; yi += interval) {
 				var gridline = document.createElementNS(svgns, "line");
@@ -145,6 +144,16 @@
 				gridline.setAttribute("class","gridline y");
 				nd.appendChild(gridline);
 			}
+		}
+
+		/* convenience function to add a text node to a node, might save a few lines here and there ... */
+		function addTextNode(nd,text,attrs) {
+			attrs = ( arguments.length == 2 ? {} : attrs);
+			var textNode = document.createTextNode(String(text));
+			for(var name in attrs) {
+				textNode.setAttribute(name,attrs[name]);
+			}
+			nd.appendChild(textNode);
 		}
 
 	]]></script>
