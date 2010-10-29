@@ -30,8 +30,9 @@
 		stroke: gray;
 	}
 	.gridlabel {
-		stroke: red; /* FIXME: so I can notice it */
-		font-size: 20pt;
+		stroke: gray; /* FIXME: so I can notice it */
+		font-size: 3pt;
+		
 	}
 	]]></style>
 
@@ -124,14 +125,14 @@
 				nd.appendChild(gridline); // hmm, never append to another node like the parent??
 
 				/* label */
-				//FIXME - not working yet 
+				//FIXME - pretty crude
 				var label = document.createElementNS(svgns, "text");
-				label.setAttribute("x",xi);
-				label.setAttribute("y",bb.y + 10); //FIXME: unhardcode
+				label.setAttribute("x",xi - 4); //FIXME: unhardcode
+				label.setAttribute("y",bb.y - 5); //FIXME: unhardcode
 				label.setAttribute("class","gridlabel x");
-				label.appendChild(document.createTextNode(xi));
-				//nd.parentNode.appendChild(label); - this seems to be unsafe outside the bbox
-				nd.appendChild(label);
+				label.appendChild(document.createTextNode(Math.round(xi)));
+				nd.parentNode.appendChild(label); // this seems to be unsafe outside the bbox
+				//nd.appendChild(label);
 			}
 
 			/* weft */
@@ -143,6 +144,14 @@
 				gridline.setAttribute("y2",yi);
 				gridline.setAttribute("class","gridline y");
 				nd.appendChild(gridline);
+
+				/* label - comments and FIXME as above */
+				var label = document.createElementNS(svgns, "text");
+				label.setAttribute("x",bb.x - 10);
+				label.setAttribute("y",yi + 2);
+				label.setAttribute("class","gridlabel y");
+				label.appendChild(document.createTextNode(Math.round(yi)));
+				nd.parentNode.appendChild(label);
 			}
 		}
 
