@@ -30,7 +30,7 @@
 		stroke: gray;
 	}
 	.gridlabel {
-		stroke: gray;
+		stroke: black;
 		font-size: 20pt;
 	}
 	]]></style>
@@ -124,14 +124,16 @@
 				nd.appendChild(gridline); // hmm, never append to another node like the parent??
 
 				/* label */
-				//FIXME - not working yet /*
+				//FIXME - not working yet 
+/*
 				var label = document.createElementNS(svgns, "line");
 				label.setAttribute("x",xi);
-				label.setAttribute("y",bb.y - 10); //FIXME: unhardcode
+				label.setAttribute("y",bb.y + 10); //FIXME: unhardcode
 				label.setAttribute("class","gridlabel x");
 				label.appendChild(document.createTextNode(xi));
-				nd.parentNode.appendChild(label);
-				*/
+				//nd.parentNode.appendChild(label); - this seems to be unsafe outside the bbox
+				nd.appendChild(label);
+*/
 			}
 			/* weft */
 			for (var yi = bb.y + interval; yi < bb.y + bb.height; yi += interval) {
