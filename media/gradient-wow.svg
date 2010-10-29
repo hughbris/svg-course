@@ -200,9 +200,16 @@
 		<!-- 220,95 is about the centre of where I want to be -->
 	</g>
 
-	<!-- TODO: out this back inside #wow -->
-		<path d="M 208,85 A 30,15 0 0,1 235,113" stroke-width="2" stroke="black" fill="none" />
-		<path d="M 208,85 A 30,15 0 0,0 235,113" stroke-width="2" stroke="black" fill="none" />
+	<!-- TODO: put this back inside #wow -->
+	<g id="o-outer" class="earc outer">
+		<path d="M 208,85 A 30,15 0 0,1 235,113" stroke-width="1" stroke="black" fill="none" />
+		<path d="M 208,85 A 30,15 0 0,0 235,113" stroke-width="1" stroke="red" fill="none" />
+	</g>
+
+	<g id="o-inner" class="earc inner">
+		<path d="M 213,92 A 15,8 0 0,1 230,106" stroke-width="1" stroke="green" fill="none" />
+		<path d="M 213,92 A 15,8 0 0,0 230,106" stroke-width="1" stroke="blue" fill="none" />
+	</g>
 
 	<script>drawGrid(document.getElementById('wow'),10);</script>
 
