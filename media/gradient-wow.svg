@@ -128,7 +128,7 @@
 
 				/* label */
 				//FIXME - pretty crude values and result
-				addTextNode(
+				addTextElement(
 					nd.parentNode, // is it always going to be outside the target object?
 					Math.round(xi),
 					{
@@ -150,12 +150,12 @@
 				nd.appendChild(gridline);
 
 				/* label - comments and FIXME as above */
-				addTextNode(nd.parentNode,Math.round(yi),{'x':bb.x-10,'y':yi+2,'class':'grid debug y'});
+				addTextElement(nd.parentNode,Math.round(yi),{'x':bb.x-10,'y':yi+2,'class':'grid debug y'});
 			}
 		}
 
 		/* convenience function to add a text node to a node, might save a few lines here and there ... */
-		function addTextNode(nd,text,attrs) {
+		function addTextElement(nd,text,attrs) {
 			attrs = ( arguments.length == 2 ? {} : attrs);
 			var textElement = document.createElementNS(svgns, "text");
 			for(var name in attrs) {
@@ -198,8 +198,11 @@
 		<use xlink:href="#w" id="w2" transform="translate(130,20),rotate(-10,100,100)" />
 		<!-- <ellipse id="TMP" cx="220" cy="90" rx="30" ry="20" stroke-width="2" stroke="black" /> --> <!-- nope, shape is wrong, seems we need an elliptical arc, lucky I stumbled across it in the Primer -->
 		<!-- 220,95 is about the centre of where I want to be -->
-		<path d="M 205,85 A 260,105 0 0,1 240,110" stroke-width="2" stroke="black" fill="none" />
 	</g>
+
+	<!-- TODO: out this back inside #wow -->
+		<path d="M 208,85 A 30,15 0 0,1 235,113" stroke-width="2" stroke="black" fill="none" />
+		<path d="M 208,85 A 30,15 0 0,0 235,113" stroke-width="2" stroke="black" fill="none" />
 
 	<script>drawGrid(document.getElementById('wow'),10);</script>
 
