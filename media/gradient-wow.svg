@@ -25,14 +25,16 @@
 		fill: url(#rygyr);
 		stroke: black;
 	}
-	.gridline {
-		stroke-width: 0.25;
+	.grid.debug {
 		stroke: gray;
 	}
-	.gridlabel {
-		stroke: gray; /* FIXME: so I can notice it */
+	line.grid.debug {
+		stroke-width: 0.25;
+	}
+	text.grid.debug {
 		font-size: 3pt;
-		
+		font-family: "Arial Narrow", Arial;
+		font-weight: lighter;
 	}
 	]]></style>
 
@@ -121,18 +123,20 @@
 				gridline.setAttribute("y1",bb.y);
 				gridline.setAttribute("x2",xi);
 				gridline.setAttribute("y2",bb.y + bb.height);
-				gridline.setAttribute("class","gridline x");
+				gridline.setAttribute("class","grid debug x");
 				nd.appendChild(gridline); // hmm, never append to another node like the parent??
 
 				/* label */
-				//FIXME - pretty crude
-				var label = document.createElementNS(svgns, "text");
-				label.setAttribute("x",xi - 4); //FIXME: unhardcode
-				label.setAttribute("y",bb.y - 5); //FIXME: unhardcode
-				label.setAttribute("class","gridlabel x");
-				label.appendChild(document.createTextNode(Math.round(xi)));
-				nd.parentNode.appendChild(label); // this seems to be unsafe outside the bbox
-				//nd.appendChild(label);
+				//FIXME - pretty crude values and result
+				addTextNode(
+					nd.parentNode, // is it always going to be outside the target object?
+					Math.round(xi),
+					{
+						'x':xi-4, //FIXME: unhardcode
+						'y':bb.y-5, //FIXME: unhardcode
+						'class':'grid debug x'
+					}
+				);
 			}
 
 			/* weft */
@@ -142,27 +146,24 @@
 				gridline.setAttribute("y1",yi);
 				gridline.setAttribute("x2",bb.x + bb.width);
 				gridline.setAttribute("y2",yi);
-				gridline.setAttribute("class","gridline y");
+				gridline.setAttribute("class","grid debug y");
 				nd.appendChild(gridline);
 
 				/* label - comments and FIXME as above */
-				var label = document.createElementNS(svgns, "text");
-				label.setAttribute("x",bb.x - 10);
-				label.setAttribute("y",yi + 2);
-				label.setAttribute("class","gridlabel y");
-				label.appendChild(document.createTextNode(Math.round(yi)));
-				nd.parentNode.appendChild(label);
+				addTextNode(nd.parentNode,Math.round(yi),{'x':bb.x-10,'y':yi+2,'class':'grid debug y'});
 			}
 		}
 
 		/* convenience function to add a text node to a node, might save a few lines here and there ... */
 		function addTextNode(nd,text,attrs) {
 			attrs = ( arguments.length == 2 ? {} : attrs);
-			var textNode = document.createTextNode(String(text));
+			var textElement = document.createElementNS(svgns, "text");
 			for(var name in attrs) {
-				textNode.setAttribute(name,attrs[name]);
+				textElement.setAttribute(name,attrs[name]);
 			}
-			nd.appendChild(textNode);
+			var textNode = document.createTextNode(String(text));
+			textElement.appendChild(textNode);
+			nd.appendChild(textElement);
 		}
 
 	]]></script>
