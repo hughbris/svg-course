@@ -9,14 +9,17 @@
 	#w {
 		font-family: "Century Schoolbook Bold", serif; /* FIXME */
 		stroke: black;
-		fill: url(#rg);
+		fill: url(#ryg);
 	}
 	]]></style>
 
-	<linearGradient id="rg" >
-		<stop offset="0" stop-color="red"/>
-		<stop offset="1" stop-color="forestgreen"/>
-	</linearGradient>
+	<defs>
+		<linearGradient id="ryg" >
+			<stop offset="0" stop-color="red" />
+			<stop offset="0.5" stop-color="yellow" />
+			<stop offset="1" stop-color="forestgreen" />
+		</linearGradient>
+	</defs>
 
 	<text id="w" x="100" y="100">w</text>
 

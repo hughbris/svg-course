@@ -2,7 +2,7 @@
 <svg
 	xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
-	onload="drawOutline(document.getElementById('ww'),{'class':'outline'});"
+	onload="drawOutlineBefore(document.getElementById('ww'),{'class':'outline'});"
 	>
 	<title>The WW gradient</title>
 	<desc>Part 2 of Week 2 assignment by Hugh Barnes towards W3C SVG course, October 2010.</desc>
@@ -15,10 +15,10 @@
 		stroke: black;
 	}
 	#w1 {
-		fill: url(#rg);
+		fill: url(#gyr);
 	}
 	#w2 {
-		fill: url(#gr);
+		fill: url(#ryg);
 	}
 	.outline {
 		stroke-width: 2;
@@ -30,7 +30,7 @@
 	<script type="application/ecmascript"><![CDATA[
 
 		/* function getBBoxAsRectElement from http://my.opera.com/MacDev_ed/blog/2009/01/21/getting-boundingbox-of-svg-elements */
-		var svgns = "http://www.w3.org/2000/svg";
+		var svgns = document.rootElement.namespaceURI; //this line modified slightly so not hardcoded :)
 		function getBBoxAsRectElement(elm)
 		{
 			var bb = elm.getBBox();
@@ -42,10 +42,9 @@
 			return rect;
 		}
 
-		function drawOutline(nd,attrs) { /* TODO: classNames is not implemented, lots of options could be provided here */
-			if (arguments.length == 1) {
-				attrs = {}; 
-			}
+		/* returns a <rect/> element which is an outline of the supplied element nd, and with any attributes provided in the "associative array" supplied as attrs */
+		function getOutline(nd,attrs) { //attrs: too python? :D
+			attrs = ( arguments.length == 1 ? {} : attrs);
 
 			var bbox=getBBoxAsRectElement(nd);
 
@@ -62,21 +61,30 @@
 			}
 			// still not sure if the above-type styles (esp fill:none) should be set here and require overriding or allow a blank slate for styling
 
-			nd.parentNode.appendChild(bbox);
+			return bbox;
+		}
+
+		/* draws an outline of a node before it */
+		function drawOutlineBefore(nd,attrs) {
+			attrs = ( arguments.length == 1 ? {} : attrs);
+			var outline = getOutline(nd,attrs);
+			nd.parentNode.insertBefore(outline,nd);
 		}
 
 	]]></script>
 
 	<defs>
-		<linearGradient id="rg" >
-			<stop offset="0" stop-color="red"/>
-			<stop offset="1" stop-color="forestgreen"/>
+		<linearGradient id="ryg" >
+			<stop offset="0" stop-color="red" />
+			<stop offset="0.5" stop-color="yellow" />
+			<stop offset="1" stop-color="forestgreen" />
 		</linearGradient>
 
 		<!-- suspect I can do this reversal of the above gradient with Javascript but that's for another day -->
-		<linearGradient id="gr" >
-			<stop offset="0" stop-color="forestgreen"/>
-			<stop offset="1" stop-color="red"/>
+		<linearGradient id="gyr" >
+			<stop offset="0" stop-color="forestgreen" />
+			<stop offset="0.5" stop-color="yellow" />
+			<stop offset="1" stop-color="red" />
 		</linearGradient>
 
 		<text id="w" class="w" x="100" y="100">w</text>
