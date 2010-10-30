@@ -12,7 +12,10 @@
 	}
 	.w {
 		font-family: "Century Schoolbook Bold", serif; /* FIXME */
+	}
+	#wow {
 		stroke: black;
+		stroke-width: 1;
 	}
 	#w1 {
 		fill: url(#gyr);
@@ -20,10 +23,16 @@
 	#w2 {
 		fill: url(#ryg);
 	}
+	#o {
+		fill: url(#rad-gyr);
+	}
 	.outline {
 		stroke-width: 2;
 		fill: url(#rygyr);
 		stroke: black;
+	}
+	.hole {
+		fill-rule: evenodd;
 	}
 	.grid.debug {
 		stroke: gray;
@@ -42,7 +51,7 @@
 		Comments draft:
 		An apparent surprising trick here has been to get the gradient fill within the letters after adding the background fill. When I set the fill no a non-gradient (colour), it renders, so it seems it's more than an element ordering issue. Stop-opacity on w class has no effect as expected. Is it a firefox bug? Nothing on google (but that is not conclusive). Then I figured it. I need to be looking more closely because my fill in the letters was the wrong way around, so it was the same as its background and of course blends in perfectly. I also notice when I fix this that there needs to be a yellow stop in the middle.
 		Interesting how I'm solving all my placement problems with the SVG DOM and javascript.
-		The O is diffcult to place and I don't even have the font right yet, which will change it all. Wonder if, as well as calculating a centroid, I can calculate its bottom to snap with the bbox/outline bottom.
+		The O is difficult to place and I don't even have the font right yet, which will change it all. Wonder if, as well as calculating a centroid, I can calculate its bottom to snap with the bbox/outline bottom.
 		I think with no x and y arguments, the rotate transform should default to the centroid of the object, doesn't seem to be the case (?) but very hard to be sure from the spec and research.
 		Thinking I might need to use two ellipses instead of a real O. O would be more semantically correct, but we have already messed up natural reading by making the order of elements read "WWO".
 	-->
@@ -193,7 +202,7 @@
 		</linearGradient>
 
 		<radialGradient id="rad-gyr">
-			<stop offset="0" stop-color="forestgreen" stop-opacity="0" />
+			<!-- aha - I just removed the 0-offset stop with stop-opacity=0 and no effect -->
 			<stop offset="0.5" stop-color="forestgreen" />
 			<stop offset="0.8" stop-color="orange" />
 			<stop offset="1" stop-color="red" />
@@ -202,10 +211,34 @@
 		<text id="w" class="w" x="100" y="100">w</text>
 	</defs>
 
-	<g id="wow">
-		<use xlink:href="#w" id="w1" transform="rotate(10,100,100)" />
-		<use xlink:href="#w" id="w2" transform="translate(130,20),rotate(-10,100,100)" />
-		<path id="o" class="earc double" fill="url(#rad-gyr)" d="M 208,85 A 30,15 0 0,1 235,113 A 30,15 0 0,1 208,85 z M 213,92 A 15,8 0 0,1 230,106 A 15,8 0 0,1 213,92 z" stroke-width="1" stroke="black" fill-rule="evenodd" />
+	<g id="wow"> <!-- just thought I'd see how readable I could get these guys -->
+		<use
+			xlink:href="#w"
+			id="w1"
+			transform="rotate(10,100,100)"
+			/>
+		<use
+			xlink:href="#w"
+			id="w2"
+			transform="
+				translate(130,20),
+				rotate(-10,100,100)
+				"
+			/>
+		<path
+			id="o"
+			class="earc double hole"
+			d="
+				M 208,85
+				A 30,15 0 0,1 235,113 
+				A 30,15 0 0,1 208,85
+				z 
+				M 213,92
+				A 15,8 0 0,1 230,106
+				A 15,8 0 0,1 213,92
+				z
+				"
+		 	/>
 	</g>
 
 	<!-- <script>drawGrid(document.getElementById('wow'),10);</script> -->
