@@ -185,7 +185,7 @@
 		<linearGradient id="rygyr" >
 			<stop offset="0" stop-color="red" />
 			<stop offset="0.25" stop-color="yellow" />
-			<stop offset="0.5" stop-color="magenta" /> <!-- forestgreen -->
+			<stop offset="0.5" stop-color="forestgreen" />
 			<stop offset="0.75" stop-color="yellow" />
 			<stop offset="1" stop-color="red" />
 		</linearGradient>
@@ -203,8 +203,11 @@
 	<g id="wow">
 		<use xlink:href="#w" id="w1" transform="rotate(10,100,100)" />
 		<use xlink:href="#w" id="w2" transform="translate(130,20),rotate(-10,100,100)" />
+		<path id="o" class="earc double" fill="url(#rad-gyr)" d="M 208,85 A 30,15 0 0,1 235,113 A 30,15 0 0,1 208,85 z M 213,92 A 15,8 0 0,1 230,106 A 15,8 0 0,1 213,92 z" stroke-width="1" stroke="black" fill-rule="evenodd" />
+<!--
 		<path id="o-outer" class="earc outer" fill="url(#rad-gyr)" d="M 208,85 A 30,15 0 0,1 235,113 A 30,15 0 0,1 208,85" stroke-width="1" stroke="black" />
 		<path id="o-inner" class="earc inner" fill="none" d="M 213,92 A 15,8 0 0,1 230,106 A 15,8 0 0,1 213,92" stroke-width="1" stroke="black" />
+-->
 	</g>
 
 	<!-- TODO: put this back inside #wow -->
