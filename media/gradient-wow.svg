@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- <?xml-stylesheet type="text/css" href="../styles/week2.css"?> --> <!-- nope, not supported in Firefox, so it's inline here -->
 <svg
 	xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -6,178 +7,62 @@
 	>
 	<title>The WoW gradient</title>
 	<desc>Part 3 of Week 2 assignment by Hugh Barnes towards W3C SVG course, October 2010.</desc>
-	<style type="text/css"><![CDATA[
-	text {
-		font-size: 100pt;
-	}
-	.w {
-		font-family: "Century Schoolbook Bold", serif; /* FIXME */
-	}
-	#wow {
-		stroke: black;
-		stroke-width: 1;
-	}
-	#w1 {
-		fill: url(#gyr);
-	}
-	#w2 {
-		fill: url(#ryg);
-	}
-	#o {
-		fill: url(#rad-gyr);
-	}
-	.outline {
-		stroke-width: 2;
-		fill: url(#rygyr);
-		stroke: black;
-	}
-	.hole {
-		fill-rule: evenodd;
-	}
-	.grid.debug {
-		stroke: gray;
-	}
-	line.grid.debug {
-		stroke-width: 0.25;
-	}
-	text.grid.debug {
-		font-size: 3pt;
-		font-family: "Arial Narrow", Arial;
-		font-weight: lighter;
-	}
-	]]></style>
 
-	<!-- 
-		Comments draft:
-		An apparent surprising trick here has been to get the gradient fill within the letters after adding the background fill. When I set the fill no a non-gradient (colour), it renders, so it seems it's more than an element ordering issue. Stop-opacity on w class has no effect as expected. Is it a firefox bug? Nothing on google (but that is not conclusive). Then I figured it. I need to be looking more closely because my fill in the letters was the wrong way around, so it was the same as its background and of course blends in perfectly. I also notice when I fix this that there needs to be a yellow stop in the middle.
-		Interesting how I'm solving all my placement problems with the SVG DOM and javascript.
-		The O is difficult to place and I don't even have the font right yet, which will change it all. Wonder if, as well as calculating a centroid, I can calculate its bottom to snap with the bbox/outline bottom.
-		I think with no x and y arguments, the rotate transform should default to the centroid of the object, doesn't seem to be the case (?) but very hard to be sure from the spec and research.
-		Thinking I might need to use two ellipses instead of a real O. O would be more semantically correct, but we have already messed up natural reading by making the order of elements read "WWO".
-	-->
-
-	<script type="application/ecmascript"><![CDATA[
-
-		/* function getBBoxAsRectElement from http://my.opera.com/MacDev_ed/blog/2009/01/21/getting-boundingbox-of-svg-elements */
-		var svgns = document.rootElement.namespaceURI; //this line modified slightly so not hardcoded :)
-		function getBBoxAsRectElement(elm)
-		{
-			var bb = elm.getBBox();
-			var rect = document.createElementNS(svgns, "rect");
-			rect.x.baseVal.value = bb.x;
-			rect.y.baseVal.value = bb.y;
-			rect.width.baseVal.value = bb.width;
-			rect.height.baseVal.value = bb.height;
-			return rect;
-		}
-
-		/* returns a <rect/> element which is an outline of the supplied element nd, and with any attributes provided in the "associative array" supplied as attrs */
-		function getOutline(nd,attrs) { //attrs: too python? :D
-			attrs = ( arguments.length == 1 ? {} : attrs);
-
-			var bbox=getBBoxAsRectElement(nd);
-
-			/* provide styling/identifying hooks (and indeed any other attributes, why not?)  */
-			for(var name in attrs) {
-				bbox.setAttribute(name,attrs[name]);
-			}
-
-			if (typeof(attrs['class']) == "undefined") {
-				/* kind of making assumptions here but there should be something that renders by default */
-				bbox.setAttribute("fill","none");
-				bbox.setAttribute("stroke","black");
-				bbox.setAttribute("stroke-width","1");
-			}
-			// still not sure if the above-type styles (esp fill:none) should be set here and require overriding or allow a blank slate for styling
-
-			return bbox;
-		}
-
-		/* draws an outline of a node after it */
-		/* this and drawOutlineBefore might have been done as parameters but I don't want to be faffing around with messy optional parameter handling */
-		function drawOutlineAfter(nd,attrs) {
-			attrs = ( arguments.length == 1 ? {} : attrs);
-			var outline = getOutline(nd,attrs);
-			var nextSiblingNode = nd.nextSibling;
-			if (nextSiblingNode) {
-				nd.parentNode.insertBefore(outline,nextSiblingNode);  // just in case it matters that this is appended directly after nd
-			}
-			else {
-				nd.parentNode.appendChild(outline);
-			}
-		}
-
-		/* draws an outline of a node before it */
-		function drawOutlineBefore(nd,attrs) {
-			attrs = ( arguments.length == 1 ? {} : attrs);
-			var outline = getOutline(nd,attrs);
-			nd.parentNode.insertBefore(outline,nd);
-		}
-
-		function getCentroid(nd) {
-			var bb = nd.getBBox();
-			var centroid = document.documentElement.createSVGPoint();
-			centroid.x = bb.x + bb.width / 2;
-			centroid.y = bb.y + bb.height / 2;
-			return centroid;
-		}
-
-		/* hey, how about some javascript to overlay gridlines for dev/debugging ?? */
-		function drawGrid(nd,interval) { // class, labels
-			var bb = nd.getBBox();
-			/* warp */
-			for (var xi = bb.x + interval; xi < bb.x + bb.width; xi += interval) {
-				var gridline = document.createElementNS(svgns, "line"); //CHECKME: still looking for an SVG DOM method to do this and set attributes more compactly
-				gridline.setAttribute("x1",xi);
-				gridline.setAttribute("y1",bb.y);
-				gridline.setAttribute("x2",xi);
-				gridline.setAttribute("y2",bb.y + bb.height);
-				gridline.setAttribute("class","grid debug x");
-				nd.appendChild(gridline); // hmm, never append to another node like the parent??
-
-				/* label */
-				//FIXME - pretty crude values and result
-				addTextElement(
-					nd.parentNode, // is it always going to be outside the target object?
-					Math.round(xi),
-					{
-						'x':xi-4, //FIXME: unhardcode
-						'y':bb.y-5, //FIXME: unhardcode
-						'class':'grid debug x'
-					}
-				);
-			}
-
-			/* weft */
-			for (var yi = bb.y + interval; yi < bb.y + bb.height; yi += interval) {
-				var gridline = document.createElementNS(svgns, "line");
-				gridline.setAttribute("x1",bb.x);
-				gridline.setAttribute("y1",yi);
-				gridline.setAttribute("x2",bb.x + bb.width);
-				gridline.setAttribute("y2",yi);
-				gridline.setAttribute("class","grid debug y");
-				nd.appendChild(gridline);
-
-				/* label - comments and FIXME as above */
-				addTextElement(nd.parentNode,Math.round(yi),{'x':bb.x-10,'y':yi+2,'class':'grid debug y'});
-			}
-		}
-
-		/* convenience function to add a text node to a node, might save a few lines here and there ... */
-		function addTextElement(nd,text,attrs) {
-			attrs = ( arguments.length == 2 ? {} : attrs);
-			var textElement = document.createElementNS(svgns, "text");
-			for(var name in attrs) {
-				textElement.setAttribute(name,attrs[name]);
-			}
-			var textNode = document.createTextNode(String(text));
-			textElement.appendChild(textNode);
-			nd.appendChild(textElement);
-		}
-
-	]]></script>
+	<script xlink:href="../scripts/svg.js" type="application/ecmascript" />
 
 	<defs>
+		<style type="text/css"><![CDATA[
+			/* duplicated in ../styles/week2.css, which I should be able to reference with a processing instruction, but unfortunately doesn't work in Firefox */
+			text {
+				font-size: 100pt;
+			}
+
+			.w {
+				font-family: "Century Schoolbook Bold", serif; /* FIXME */
+			}
+
+			#wow {
+				stroke: black;
+				stroke-width: 1;
+			}
+
+			#w1 {
+				fill: url(#gyr);
+			}
+
+			#w2 {
+				fill: url(#ryg);
+			}
+
+			#o {
+				fill: url(#rad-gyr);
+			}
+
+			.outline {
+				stroke-width: 2;
+				fill: url(#rygyr);
+				stroke: black;
+			}
+
+			.hole {
+				fill-rule: evenodd;
+			}
+
+			.grid.debug {
+				stroke: gray;
+			}
+
+			line.grid.debug {
+				stroke-width: 0.25;
+			}
+
+			text.grid.debug {
+				font-size: 3pt;
+				font-family: "Arial Narrow", Arial;
+				font-weight: lighter;
+			}
+		]]></style>
+
 		<linearGradient id="ryg" >
 			<stop offset="0" stop-color="red" />
 			<stop offset="0.5" stop-color="yellow" />

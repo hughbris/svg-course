@@ -1,0 +1,51 @@
+/* styles used in Week 2 SVG course exercises */
+
+text {
+	font-size: 100pt;
+}
+
+.w {
+	font-family: "Century Schoolbook Bold", serif; /* FIXME */
+}
+
+#wow {
+	stroke: black;
+	stroke-width: 1;
+}
+
+#w1 {
+	fill: url(#gyr);
+}
+
+#w2 {
+	fill: url(#ryg);
+}
+
+#o {
+	fill: url(#rad-gyr);
+}
+
+.outline {
+	stroke-width: 2;
+	fill: url(#rygyr);
+	stroke: black;
+}
+
+.hole {
+	fill-rule: evenodd;
+}
+
+.grid.debug {
+	stroke: gray;
+}
+
+line.grid.debug {
+	stroke-width: 0.25;
+}
+
+text.grid.debug {
+	font-size: 3pt;
+	font-family: "Arial Narrow", Arial;
+	font-weight: lighter;
+}
+

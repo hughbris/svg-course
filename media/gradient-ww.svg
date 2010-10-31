@@ -6,74 +6,34 @@
 	>
 	<title>The WW gradient</title>
 	<desc>Part 2 of Week 2 assignment by Hugh Barnes towards W3C SVG course, October 2010.</desc>
-	<style type="text/css"><![CDATA[
-	text {
-		font-size: 100pt;
-	}
-	.w {
-		font-family: "Century Schoolbook Bold", serif; /* FIXME */
-		stroke: black;
-	}
-	#w1 {
-		fill: url(#gyr);
-	}
-	#w2 {
-		fill: url(#ryg);
-	}
-	.outline {
-		stroke-width: 2;
-		fill: none;
-		stroke: black;
-	}
-	]]></style>
 
-	<script type="application/ecmascript"><![CDATA[
-
-		/* function getBBoxAsRectElement from http://my.opera.com/MacDev_ed/blog/2009/01/21/getting-boundingbox-of-svg-elements */
-		var svgns = document.rootElement.namespaceURI; //this line modified slightly so not hardcoded :)
-		function getBBoxAsRectElement(elm)
-		{
-			var bb = elm.getBBox();
-			var rect = document.createElementNS(svgns, "rect");
-			rect.x.baseVal.value = bb.x;
-			rect.y.baseVal.value = bb.y;
-			rect.width.baseVal.value = bb.width;
-			rect.height.baseVal.value = bb.height;
-			return rect;
-		}
-
-		/* returns a <rect/> element which is an outline of the supplied element nd, and with any attributes provided in the "associative array" supplied as attrs */
-		function getOutline(nd,attrs) { //attrs: too python? :D
-			attrs = ( arguments.length == 1 ? {} : attrs);
-
-			var bbox=getBBoxAsRectElement(nd);
-
-			/* provide styling/identifying hooks (and indeed any other attributes, why not?)  */
-			for(var name in attrs) {
-				bbox.setAttribute(name,attrs[name]);
-			}
-
-			if (typeof(attrs['class']) == "undefined") {
-				/* kind of making assumptions here but there should be something that renders by default */
-				bbox.setAttribute("fill","none");
-				bbox.setAttribute("stroke","black");
-				bbox.setAttribute("stroke-width","1");
-			}
-			// still not sure if the above-type styles (esp fill:none) should be set here and require overriding or allow a blank slate for styling
-
-			return bbox;
-		}
-
-		/* draws an outline of a node before it */
-		function drawOutlineBefore(nd,attrs) {
-			attrs = ( arguments.length == 1 ? {} : attrs);
-			var outline = getOutline(nd,attrs);
-			nd.parentNode.insertBefore(outline,nd);
-		}
-
-	]]></script>
+	<script xlink:href="../scripts/svg.js" type="application/ecmascript" />
 
 	<defs>
+		<style type="text/css"><![CDATA[
+		text {
+			font-size: 100pt;
+		}
+
+		.w {
+			font-family: "Century Schoolbook Bold", serif; /* FIXME */
+			stroke: black;
+		}
+
+		#w1 {
+			fill: url(#gyr);
+		}
+
+		#w2 {
+			fill: url(#ryg);
+		}
+
+		.outline {
+			stroke-width: 2;
+			fill: none;
+			stroke: black;
+		}
+		]]></style>
 		<linearGradient id="ryg" >
 			<stop offset="0" stop-color="red" />
 			<stop offset="0.5" stop-color="yellow" />

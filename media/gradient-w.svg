@@ -2,18 +2,19 @@
 <svg xmlns="http://www.w3.org/2000/svg">
 	<title>The W gradient</title>
 	<desc>Part 1 of Week 2 assignment by Hugh Barnes towards W3C SVG course, October 2010.</desc>
-	<style type="text/css"><![CDATA[
-	text {
-		font-size: 100pt;
-	}
-	#w {
-		font-family: "Century Schoolbook Bold", serif; /* FIXME */
-		stroke: black;
-		fill: url(#ryg);
-	}
-	]]></style>
 
 	<defs>
+		<style type="text/css"><![CDATA[
+		text {
+			font-size: 100pt;
+		}
+
+		#w {
+			font-family: "Century Schoolbook Bold", serif; /* FIXME */
+			stroke: black;
+			fill: url(#ryg);
+		}
+		]]></style>
 		<linearGradient id="ryg" >
 			<stop offset="0" stop-color="red" />
 			<stop offset="0.5" stop-color="yellow" />
