@@ -34,29 +34,32 @@
 			padding-top: 0.5em;
 			display: block;
 		}
+		.letter {
+			font-family: Courier, monospace;
+		}
 	</style>
 </head>
 
 <body id="week1" class="assignment">
 
-	<h1>Week 2 Assignment: Creating SVG</h1>
+	<h1>Week 2 Assignment</h1>
 
 	<p>In which Hugh Barnes hopefully fulfills course requirements for Week 2 in <em class="title course">Introduction to SVG October 2010</em>. His <a href="http://github.com/hughbris/svg-course">incremental deliberations</a> can be observed and followed on Github.</p>
 
 	<h2>Contents</h2>
 	<ol class="toc">
-		<li><a href="#part1">W Gradient</a></li>
+		<li><a href="#part1"><kbd class="letter">W</kbd> Gradient</a></li>
 		<li><a href="#part2">The World Wide</a></li>
-		<li><a href="#part3">The WoW effect</a></li>
+		<li><a href="#part3">World of WoWcraft</a></li>
 	</ol>
 
 	<div id="part1" class="part">
-		<h2>Part 1: W Gradient</h2>
-		<p class="challenge">Begin by making a picture that looks like [a depicted gradient-filled W].</p>
+		<h2>Part 1: <kbd class="letter">W</kbd> Gradient</h2>
+		<p class="challenge">Begin by making a picture that looks like [a depicted gradient-filled <kbd class="letter">W</kbd>].</p>
 
 		<div class="response">
-			<p class="response">This certainly wasn't difficult, except that I couldn't for the life of me match anything too close to the font provided. I figure <a href="week1.html#part4">that was so last week</a>:
-				<object id="w" type="image/svg+xml" data="media/gradient-w.svg">
+			<p>This certainly wasn't difficult, except that I couldn't for the life of me match anything too close to the font provided. I figure <a href="week1.html#part4">that was <em>so</em> last week</a>:
+				<object width="100%" id="w" type="image/svg+xml" data="media/gradient-w.svg">
 					<img src="media/gradient-w.png" alt="Letter W filled with gradient from red to green" />
 				</object>
 			</p>
@@ -65,14 +68,14 @@
 
 	<div id="part2" class="part">
 		<h2>Part 2: The World Wide</h2>
-		<p class="challenge">See next if you can do [two rotated W's leaning on each other], with a rectangle around the result.</p>
+		<p class="challenge">See next if you can do [two rotated <kbd class="letter">W</kbd>'s leaning on each other], with a rectangle around the result.</p>
 		<div class="response">
-			<p>I started this exercise assuming the W's were a straight reflection, so I used the <code>translate(-1,0)</code> trick, which worked until I discovered only after starting the <a href="#part3">next part</a> that the shape was not reflected, only the gradient. Always pays to look carefully.</p>
+			<p>I started this exercise assuming the <kbd class="letter">W</kbd>'s were a straight reflection, so I used the <code>translate(-1,0)</code> trick, which worked until I discovered only after starting the <a href="#part3">next part</a> that the shape was not reflected, only the gradient. Always pays to look carefully.</p>
 			<p>So manual placement seemed to be in order. The angle itself was tricky. It was determined by trial and error. Incidentally, I only realised much later well into <a href="#part3">Part 3</a> why I had to also translate on the y-coordinate 20 places in my trials and multiple errors. I figure there might be a way to calculate a rotation like this with Javascript, but there seems to be an awful lot of variables.</p>
-			<p>To my disappointment, the two W's were not placed correctly at work on Firefox under Windows. My <a type="image/png" href="media/gradient-ww.png">home rendering</a> is provided as the <code>object</code> element fallback.</p>
-			<p>For the outline box, a scan through the <a href="http://www.w3.org/Graphics/SVG/IG/resources/svgprimer.html">Primer</a> revealed <a href="http://www.w3.org/Graphics/SVG/IG/resources/svgprimer.html#getBBox">a Javascript function called BBox is required</a>. The example implementation link site at the.fuchsia-design.com seems to have expired and been taken over. A little searching gave me <a href="http://my.opera.com/MacDev_ed/blog/2009/01/21/getting-boundingbox-of-svg-elements">another example</a>, which worked fine (and really I should have been able to figure it out myself, just lacking that recent Javascript confidence).</p>
+			<p>To my disappointment, the two <kbd class="letter">W</kbd>'s were not placed correctly at work on Firefox under Windows. My <a type="image/png" href="media/gradient-ww.png">home rendering</a> is provided as the <code>object</code> element fallback.</p>
+			<p>For the outline box, a scan through the <a href="http://www.w3.org/Graphics/SVG/IG/resources/svgprimer.html">Primer</a> revealed <a href="http://www.w3.org/Graphics/SVG/IG/resources/svgprimer.html#getBBox">a Javascript function called BBox is required</a>. The example implementation link site at the.fuchsia-design.com seems to have expired and been taken over [bug report]. A little searching gave me <a href="http://my.opera.com/MacDev_ed/blog/2009/01/21/getting-boundingbox-of-svg-elements">another example</a>, which worked fine (and really I should have been able to figure it out myself, just lacking that recent Javascript confidence).</p>
 			<p>Finally:
-				<object id="ww" type="image/svg+xml" data="media/gradient-ww.svg">
+				<object width="100%" id="ww" type="image/svg+xml" data="media/gradient-ww.svg">
 					<img src="media/gradient-ww.png" alt="Two letters, W, tilted toward each other" />
 				</object>
 			</p>
@@ -80,14 +83,22 @@
 	</div>
 
 	<div id="part3" class="part">
-		<h2>Part 3: The WoW effect</h2>
+		<h2>Part 3: World of WoWcraft</h2>
 		<p class="challenge">Finally, give this [WoW effect] a try:</p>
-		<p class="response">
-			Behold:
-			<object id="wow" type="image/svg+xml" data="media/gradient-wow.svg">
-				<img src="media/gradient-wow.png" alt="WoW spelled out with gradients" />
-			</object>
-		</p>
+		<div class="response">
+			<p>It was pretty easy to get to a point where I had taken <a href="#part2">Part 2</a>'s effort and added a gradient fill background. At this point, my <kbd class="letter">W</kbd>'s looked like they were transparent. It took me some time to realise that the letter fill was actually the same as the background fill, so they only <em>appeared</em> transparent. Using a solid colour fill helped me debug this one. Then, <a href="#part2">as noted above</a>, gradients were adjusted with more attention paid to their exemplars. This required revision to part 2 work.</p>
+			<p>My plan was to add a letter <kbd class="letter">O</kbd> in an appropriate font, rotate it 90&#xB0;, place it and fill it with the gradient. My other thought/fallback was that an ellipse might work well.</p>
+			<p>I had all kinds of problems getting the letter O to align touching the bottom of the bounding box I realised that I would need to re-position it if I found a better font anyway. I couldn't figure out the point on which the rotation was taking place. I hoped it might default to the centroid if I omitted the relevant parameters. Hard to find hard information on that, but apparently not. I wrote some Javascript to calculate an object centroid and contemplated a function to snap and object to another with the <kbd class="letter">O</kbd> and bounding box in mind respectively. None of this seemed terribly robust. and I quickly reached the point where I moved on to trying an ellipse. I had resisted that because I was clinging to an idea that having the actual letters <kbd class="letter">W</kbd>,<kbd class="letter">o</kbd>,<kbd class="letter">W</kbd> would be more semantically correct. Hmm, maybe not so much. In any case, because of required ordering, it would read "WWo".</p>
+			<p>The ellipse was easy enough to shape, rotate, and place, but I thought it was too oval-shaped.</p>
+			<p>About that moment I read about elliptical arcs. I had to do quite a bit of extra research to understand them, but I was sure this was the point of this exercise.  Even when I understood, I had a terrible time making a shape by guessing coordinates. As a diversion and to help me, I wrote Javascript to add some crude gridlines to help me with placement. It did help, and I got my two elliptical arcs by guided estimation. They barely looked better than the original ellipse. I didn't have the patience beyond a few bad tweaks to try flattening my O. Now to fill the outside area with the gradient.</p>
+			<p>I messed around with colours a lot more and fiddled with a delayed stop offset. I knew I'd read about leaving holes in gradient fills somewhere but was having trouble locating it. I finally found it in the study material having overlooked it because it wasn't in relation to circles. I applied <code>fill-rule="evenodd"</code>, adjusted my gradient fill offset and it was (mostly) good.</p>
+			<p>I attempted to put the Javascript and CSS in external files, but only the former was successful with Firefox. I normally code to standards, but Firefox is really my main preview tool, so I've reluctantly duplicated the inline CSS.</p>
+			<p>Ultimately, I was only unhappy with the font of the <kbd class="letter">W</kbd>'s and the shape of my elliptical arc <kbd class="letter">O</kbd>. Behold:
+				<object width="100%" id="wow" type="image/svg+xml" data="media/gradient-wow.svg">
+					<img src="media/gradient-wow.png" alt="WoW spelled out with gradients" />
+				</object>
+			</p>
+		</div>
 	</div>
 
 </body>
