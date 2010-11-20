@@ -72,6 +72,23 @@
 		<h2>Part 2: Interesting SVG examples</h2>
 		<p class="challenge">Find three interesting examples of the usage of SVG on the Web. Offer a brief description of each and their URL. Let me know if I can share your recommendations with others.</p>
 		<div class="response">
+			<p class="lead-in">Feel free to share these examples. They are all examples I discovered before commencing the course:</p>
+			<ol>
+				<li>
+					<h3>OpenStreetMap's <a href="http://wiki.openstreetmap.org/wiki/Osmarender">Osmarender</a></h3>
+					<p>This is not rendered as SVG, but rather uses SVG to create maps from <a href="http://openstreetmap.org">OpenStreetMap</a> (OSM) data, and creates rasterised tiles for serving to the browser (using an interesting <a href="http://wiki.openstreetmap.org/wiki/Tiles@home">distributed processing</a> system like SETI@home). I have actually hacked on Osmarender a little myself. I don't particularly like the way the XSLT takes the rule file as input rather than the data, and would like to refactor it to use a more natural input (like the, er, map data). The project inspired me to look into what else might be done with SVG and maps, particularly interactivity, and lead me to the next examples. I find it interesting that there is a <a href="http://wiki.openstreetmap.org/wiki/Osmarender/BezierCurves">debate about when to render curves as beziers</a>, and how to declare preferences.</p>
+				</li>
+				<li>
+					<h3><a href="http://www.carto.net/williams/yosemite/index.svg" type="image/svg+xml">Yosemite National Park - Interactive Hiking Map</a></h3>
+					<p>This the sort of place I hope Osmarender might get to in the browser without post-rasterising. It's an amazingly inspiring interactive map of Yosemite National Park. I'm not quite sure where it's sourcing its geocoordinates, but I can see the park boundary hardcoded as an svg path.</p>
+					<p>I particularly like the "Animate Trail!" link  in the trails tab, which cleverly degrades to "Show Trail!" on Firfox, which doesn't support animation. Calculating the profile adjacent to this link is just brilliant and I can imagine vetry important. Wow!</p>
+				</li>
+				<li>
+					<h3><a href="http://www.xul.fr/svgtetris.svg" type="image/svg+xml">Mozilla SVG Tetris</a></h3>
+					<p>This is the old Tetris game implemented in SVG. It gets by without declarative animation (<a href="http://www.xul.fr/svgtetris.svg.txt" type="text/plain">source</a>), so works in just about any static SVG-supporting browser platform. Using Javascript timers and event listers to reposition the tiles also means we get the retro jerkiness of movement that the classic version had. I daresay a declaratively animated version would have produced quite smooth movements. In fact it's almost completely implemented with Javascript, with only three SVG elements after <code>&lt;script/></code>, two of which are near-empty group elements (<code>&lt;g/></code>) acting as scaffold.</p>
+					<p>It's curious that something implemented in Javascript, undoubtedly less accessible in theory, is in practice able to be appreciated in full fuctionality by a greater audience because of incomplete SVG standards support.</p>
+				</li>
+			</ol>
 		</div>
 	</div>
 
