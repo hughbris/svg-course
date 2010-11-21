@@ -118,3 +118,9 @@ function addTextElement(nd,text,attrs) {
 	nd.appendChild(textElement);
 }
 
+function randomColour() { /* a near copy of Color() provided by David Dailey in course material */
+	var R=parseInt(Math.random()*255);
+	var G=parseInt(Math.random()*255);
+	var B=parseInt(Math.random()*255);
+	return "rgb("+R+","+G+","+B+")";
+}
