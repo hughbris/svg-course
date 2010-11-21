@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<svg
+	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	onload="send()"
+	>
+	<title>Ajax animation</title>
+	<desc>Part 3(b) of Weeks 4-5 assignment by Hugh Barnes towards W3C SVG course, October 2010.</desc>
+
+	<script xlink:href="../scripts/svg.js" type="application/ecmascript" />
+
+	<!-- <script xlink:href="http://identi.ca/api/statuses/public_timeline.json?callback=hugh" type="application/ecmascript" /> -->
+
+	<script><![CDATA[
+	function createRequestObject() {
+		var ro;
+		var browser = navigator.appName;
+		if (browser == "Microsoft Internet Explorer"){
+		    ro = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		else {
+		    ro = new XMLHttpRequest();
+		}
+		return ro;
+	}
+ 
+	var http = createRequestObject();
+
+	function send() {
+		try {
+			http.open('get', "http://identi.ca/api/statuses/public_timeline.xml");
+			http.onreadystatechange = doSomething;
+			http.send(null);
+		}
+		catch(e) {
+		}
+	}
+
+	function doSomething() {
+		if (http.readyState == 4) {
+			var r = http.responseXML;
+			var container = document.getElementById("canvas");
+			var statuses = r.documentElement.getElementsByTagName("status");
+			for (status in statuses) {
+				var box = container.getBBox();
+				var dent = statuses[status].getElementsByTagName("text")[0].firstChild.nodeValue;
+				var myNewTextElement = addTextElement(container.parentNode,dent,{'x':box.x + box.width / 2,'y': box.y + box.height});
+
+				var animateElement = document.createElementNS(svgns, "animate");
+				animateElement.setAttribute('attributeName','y');
+				animateElement.setAttribute('dur','10s');
+				animateElement.setAttribute('values',box.y + box.height + ';' + box.y);
+				animateElement.setAttribute('begin',status);
+				myNewTextElement.appendChild(animateElement);
+
+				var avatar = statuses[status].getElementsByTagName("profile_image_url")[0].firstChild.nodeValue;
+				//alert(avatar);
+				//addImageElement(container,avatar,{'x':box.x + box.width / 2,'y': box.y + box.height});
+/*
+	var imageElement = document.createElementNS(svgns, "image");
+	imageElement.setAttributeNS(xlinkns,'href',avatar);
+	container.appendChild(imageElement);
+*/
+				setTimeout (null,1000);
+			}
+		}
+	}
+	
+	]]></script>
+
+	<defs>
+		<style type="text/css"><![CDATA[
+		.container {
+			fill: none;
+			stroke: black;
+			stroke-width: 5;
+			fill-opacity: 0;
+		}
+		]]></style>
+	</defs>
+
+	<rect class="container" id="canvas" width="800" height="600" x="50" y="50" />
+	<image xlink:href="http://avatar.identi.ca/94902-48-20091113135916.jpeg" x="300" y="300" />
+
+</svg>

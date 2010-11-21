@@ -1,6 +1,7 @@
 /* ad-hoc SVG javascript library */
 
 var svgns = document.rootElement.namespaceURI;
+var xlinkns = 'http://www.w3.org/1999/xlink';
 
 /* function getBBoxAsRectElement from http://my.opera.com/MacDev_ed/blog/2009/01/21/getting-boundingbox-of-svg-elements */
 function getBBoxAsRectElement(elm)
@@ -115,7 +116,18 @@ function addTextElement(nd,text,attrs) {
 	}
 	var textNode = document.createTextNode(String(text));
 	textElement.appendChild(textNode);
-	nd.appendChild(textElement);
+	return nd.appendChild(textElement);
+}
+
+/* convenience function to add an image node to a node ... */
+function addImageElement(nd,loc,attrs) {
+	attrs = ( arguments.length == 2 ? {} : attrs);
+	var imageElement = document.createElementNS(svgns, "image");
+	for(var name in attrs) {
+		imageElement.setAttribute(name,attrs[name]);
+	}
+	imageElement.setAttributeNS(xlinkns,'href',loc);
+	return nd.appendChild(imageElement);
 }
 
 function randomColour() { /* a near copy of Color() provided by David Dailey in course material */

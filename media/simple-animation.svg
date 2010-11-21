@@ -33,9 +33,9 @@
 	</defs>
 
 	<ellipse cx="200" cy="300" rx="50" ry="100">
-		<animate attributeName="rx" dur="5s" values="50;200;50" repeatCount="2" />
-		<animate attributeName="ry" dur="5s" values="100;300;100" repeatCount="2" />
-		<animate attributeName="cx" dur="10s" begin="0" onbegin="goRandomColour(evt)" onend="changeRestart(evt)" values="200;100;300;200" repeatCount="1" />
+		<animate attributeName="rx" dur="5s" values="50;200;50" repeatCount="4" />
+		<animate attributeName="ry" dur="5s" values="100;300;100" repeatCount="4" />
+		<animate attributeName="cx" dur="10s" begin="0" onbegin="goRandomColour(evt)" onend="changeRestart(evt)" values="200;100;300;200" repeatCount="2" />
 	</ellipse>
 
 </svg>
