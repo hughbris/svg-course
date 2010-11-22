@@ -2,7 +2,6 @@
 <svg
 	xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
-	onload="send()"
 	>
 	<title>Ajax animation</title>
 	<desc>Part 3(b) of Weeks 4-5 assignment by Hugh Barnes towards W3C SVG course, October 2010.</desc>
@@ -45,26 +44,33 @@
 			var box = container.getBBox();
 
 			var defs = document.getElementsByTagName("defs")[0];
+			var defaultAvatar = document.getElementById("avatar");
 
 			var animateElement = document.getElementById("shoot");
 
 			var statuses = r.documentElement.getElementsByTagName("status");
 			for (status in statuses) {
 
-				//alert(dent);
-				var dent = statuses[status].getElementsByTagName("text")[0].firstChild.nodeValue;
-				var myNewTextElement = addTextElement(container.parentNode,dent,{'x':box.x + (box.width / 2) + 72,'y': box.y + box.height + 72});
+				var dentText = statuses[status].getElementsByTagName("text")[0].firstChild.nodeValue;
+				var dent = addTextElement(container.parentNode,dentText,{'x':box.x + (box.width / 2) + 72,'y': box.y + box.height + 72});
 
-				var textAnimateElement = animateElement.cloneNode(true);
-				textAnimateElement.setAttribute('begin',status);
-				textAnimateElement.setAttribute('values',box.y + box.height + ';' + box.y);
 
-				myNewTextElement.appendChild(textAnimateElement);
+				var dentAnimation = animateElement.cloneNode(true);
+				dentAnimation.setAttribute('begin',status);
+				dentAnimation.setAttribute('values',box.y + box.height + ';' + box.y);
 
-				var avatar = statuses[status].getElementsByTagName("profile_image_url")[0].firstChild.nodeValue;
-				var myNewImageElement = addImageElement(container.parentNode,avatar,{'x':box.x + box.width / 2,'y': box.y + box.height,'width':48,'height':48}); //class:avatar, alas no on ff4b
-				var imageAnimateElement = textAnimateElement.cloneNode(true);
-				myNewImageElement.appendChild(imageAnimateElement);
+				dent.appendChild(dentAnimation);
+
+				var avatarLoc = statuses[status].getElementsByTagName("profile_image_url")[0].firstChild.nodeValue;
+
+				var userAvatar = defaultAvatar.cloneNode(true);
+				document.documentElement.appendChild(userAvatar);
+					//addImageElement(container.parentNode,avatarLoc,{'x':box.x + box.width / 2,'y': box.y + box.height,'width':48,'height':48}); //class:avatar, alas no on ff4b
+				userAvatar.setAttributeNS(xlinkns,'xlink:href',avatarLoc);
+				userAvatar.setAttribute('clip-path','url(#circleClip)'); //fails ?!?
+
+				var avatarAnimation = dentAnimation.cloneNode(true);
+				userAvatar.appendChild(avatarAnimation);
 			}
 		}
 	}
@@ -75,13 +81,13 @@
 		<style type="text/css"><![CDATA[
 		.container {
 			fill: none;
-			stroke: black;
-			stroke-width: 5;
+			stroke: teal;
+			stroke-width: 2;
 			fill-opacity: 0;
 		}
 		.avatar {
-			height: 48px;
-			width: 48px;
+			height: 48;
+			width: 48;
 		}
 		.dent {
 			color: red;
@@ -89,9 +95,30 @@
 		]]></style>
 
 		<animate id="shoot" attributeName="y" dur="10s" />
+
+		<clipPath id="circleClip">
+			<circle cx="50%" cy="50%" r="50%" />
+		</clipPath>
 	</defs>
 
-	<rect class="container" id="canvas" width="800" height="600" x="50" y="50" />
-	<!-- <image xlink:href="http://avatar.identi.ca/94902-48-20091113135916.jpeg" x="800" y="300" /> -->
+	<rect
+		class="container"
+		id="canvas"
+		width="800"
+		height="600"
+		x="50"
+		y="50"
+	/>
+
+	<image
+		id="avatar"
+		class="avatar"
+		xlink:href="http://theme.status.net/0.9.6/identica/default-avatar-stream.png"
+		x="426"
+		y="626"
+		width="48"
+		height="48"
+		onclick="send()"
+	/>
 
 </svg>
