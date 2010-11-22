@@ -50,18 +50,20 @@
 				var dent = statuses[status].getElementsByTagName("text")[0].firstChild.nodeValue;
 				var myNewTextElement = addTextElement(container.parentNode,dent,{'x':box.x + box.width / 2,'y': box.y + box.height});
 
-				var animateElement = document.createElementNS(svgns, "animate");
-				animateElement.setAttribute('attributeName','y');
-				animateElement.setAttribute('dur','10s');
-				animateElement.setAttribute('values',box.y + box.height + ';' + box.y);
-				animateElement.setAttribute('begin',status);
-				myNewTextElement.appendChild(animateElement);
+				var textAnimateElement = document.createElementNS(svgns, "animate");
+				textAnimateElement.setAttribute('attributeName','y');
+				textAnimateElement.setAttribute('dur','10s');
+				textAnimateElement.setAttribute('values',box.y + box.height + ';' + box.y);
+				textAnimateElement.setAttribute('begin',status);
+				myNewTextElement.appendChild(textAnimateElement);
 
 				//container.parentNode.appendChild(myNewTextElement);
 
 				var avatar = statuses[status].getElementsByTagName("profile_image_url")[0].firstChild.nodeValue;
 				//alert(avatar);
-				addImageElement(container.parentNode,avatar,{'x':box.x + box.width / 2,'y': box.y + box.height});
+				var myNewImageElement = addImageElement(container.parentNode,avatar,{'x':box.x + box.width / 2,'y': box.y + box.height,'width':64,'height':64});
+				var imageAnimateElement = textAnimateElement.cloneNode(true);
+				myNewImageElement.appendChild(imageAnimateElement);
 			}
 		}
 	}
@@ -80,6 +82,6 @@
 	</defs>
 
 	<rect class="container" id="canvas" width="800" height="600" x="50" y="50" />
-	<image xlink:href="http://avatar.identi.ca/94902-48-20091113135916.jpeg" x="300" y="300" />
+	<!-- <image xlink:href="http://avatar.identi.ca/94902-48-20091113135916.jpeg" x="800" y="300" /> -->
 
 </svg>
