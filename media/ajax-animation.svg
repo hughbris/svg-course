@@ -28,8 +28,8 @@
 
 	function send() {
 		try {
-			//http.open('get', "http://identi.ca/api/statuses/public_timeline.xml");
-			http.open('get', "../public_timeline.xml"); //workaround for Opera dev which has same site origin policy
+			http.open('get', "http://identi.ca/api/statuses/public_timeline.xml");
+			//http.open('get', "../public_timeline.xml"); //workaround for Opera dev which has same site origin policy
 			http.onreadystatechange = doSomething;
 			http.send(null);
 		}
@@ -44,6 +44,16 @@
 			var container = document.getElementById("canvas");
 			var box = container.getBBox();
 
+			var defs = document.getElementsByTagName("defs")[0];
+
+			var animateElement = document.createElementNS(svgns, "animate");
+			animateElement.setAttribute('id','shooter');
+			animateElement.setAttribute('attributeName','y');
+			animateElement.setAttribute('dur','10s');
+			animateElement.setAttribute('values',box.y + box.height + ';' + box.y);
+			animateElement.setAttribute('begin',0);
+			defs.appendChild(animateElement);
+
 			var statuses = r.documentElement.getElementsByTagName("status");
 			for (status in statuses) {
 
@@ -51,11 +61,15 @@
 				var dent = statuses[status].getElementsByTagName("text")[0].firstChild.nodeValue;
 				var myNewTextElement = addTextElement(container.parentNode,dent,{'x':box.x + box.width / 2,'y': box.y + box.height});
 
+				var textAnimateElement = animateElement.cloneNode(true);
+				textAnimateElement.setAttribute('begin',status);
+/*
 				var textAnimateElement = document.createElementNS(svgns, "animate");
 				textAnimateElement.setAttribute('attributeName','y');
 				textAnimateElement.setAttribute('dur','10s');
 				textAnimateElement.setAttribute('values',box.y + box.height + ';' + box.y);
 				textAnimateElement.setAttribute('begin',status);
+*/
 				myNewTextElement.appendChild(textAnimateElement);
 
 				//container.parentNode.appendChild(myNewTextElement);
@@ -64,6 +78,7 @@
 				//alert(avatar);
 				var myNewImageElement = addImageElement(container.parentNode,avatar,{'x':box.x + box.width / 2,'y': box.y + box.height,'width':64,'height':64});
 				var imageAnimateElement = textAnimateElement.cloneNode(true);
+				imageAnimateElement.setAttribute('begin',status);
 				myNewImageElement.appendChild(imageAnimateElement);
 			}
 		}
@@ -80,6 +95,8 @@
 			fill-opacity: 0;
 		}
 		]]></style>
+
+		
 	</defs>
 
 	<rect class="container" id="canvas" width="800" height="600" x="50" y="50" />
