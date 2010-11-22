@@ -52,8 +52,14 @@
 			for (status in statuses) {
 
 				var dentText = statuses[status].getElementsByTagName("text")[0].firstChild.nodeValue;
-				var dent = addTextElement(container.parentNode,dentText,{'x':box.x + (box.width / 2) + 72,'y': box.y + box.height + 72});
-
+//				var dent = addTextElement(container.parentNode,dentText,{'x':box.x + (box.width / 2) + 72,'y': box.y + box.height + 72});
+				var dent = document.createElementNS(svgns, "text");
+				var attrs = {'x':box.x + (box.width / 2) + 72,'y': box.y + box.height + 72};
+				for(var name in attrs) {
+					dent.setAttribute(name,attrs[name]);
+				}
+				var textNode = document.createTextNode(String(dentText));
+				dent.appendChild(textNode);
 
 				var dentAnimation = animateElement.cloneNode(true);
 				dentAnimation.setAttribute('begin',status);
@@ -61,17 +67,20 @@
 
 				dent.appendChild(dentAnimation);
 
+				document.documentElement.appendChild(dent);
+
 				var avatarLoc = statuses[status].getElementsByTagName("profile_image_url")[0].firstChild.nodeValue;
 
 				var userAvatar = defaultAvatar.cloneNode(true);
-				document.documentElement.appendChild(userAvatar);
 					//addImageElement(container.parentNode,avatarLoc,{'x':box.x + box.width / 2,'y': box.y + box.height,'width':48,'height':48}); //class:avatar, alas no on ff4b
 				userAvatar.setAttributeNS(xlinkns,'xlink:href',avatarLoc);
 				userAvatar.setAttribute('clip-path','url(#circleClip)'); //fails ?!?
 
 				var avatarAnimation = dentAnimation.cloneNode(true);
 				userAvatar.appendChild(avatarAnimation);
+				document.documentElement.appendChild(userAvatar);
 			}
+			document.documentElement.removeChild(dent);
 		}
 	}
 	
