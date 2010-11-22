@@ -126,7 +126,7 @@ function addImageElement(nd,loc,attrs) {
 	for(var name in attrs) {
 		imageElement.setAttribute(name,attrs[name]);
 	}
-	imageElement.setAttributeNS(xlinkns,'href',loc);
+	imageElement.setAttributeNS(xlinkns,'xlink:href',loc);
 	return nd.appendChild(imageElement);
 }
 

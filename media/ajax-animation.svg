@@ -28,11 +28,13 @@
 
 	function send() {
 		try {
-			http.open('get', "http://identi.ca/api/statuses/public_timeline.xml");
+			//http.open('get', "http://identi.ca/api/statuses/public_timeline.xml");
+			http.open('get', "../public_timeline.xml"); //workaround for Opera dev which has same site origin policy
 			http.onreadystatechange = doSomething;
 			http.send(null);
 		}
 		catch(e) {
+			//alert(http.responseText);
 		}
 	}
 
@@ -40,9 +42,11 @@
 		if (http.readyState == 4) {
 			var r = http.responseXML;
 			var container = document.getElementById("canvas");
+
 			var statuses = r.documentElement.getElementsByTagName("status");
 			for (status in statuses) {
 				var box = container.getBBox();
+				//alert(dent);
 				var dent = statuses[status].getElementsByTagName("text")[0].firstChild.nodeValue;
 				var myNewTextElement = addTextElement(container.parentNode,dent,{'x':box.x + box.width / 2,'y': box.y + box.height});
 
@@ -53,15 +57,11 @@
 				animateElement.setAttribute('begin',status);
 				myNewTextElement.appendChild(animateElement);
 
+				//container.parentNode.appendChild(myNewTextElement);
+
 				var avatar = statuses[status].getElementsByTagName("profile_image_url")[0].firstChild.nodeValue;
 				//alert(avatar);
-				//addImageElement(container,avatar,{'x':box.x + box.width / 2,'y': box.y + box.height});
-/*
-	var imageElement = document.createElementNS(svgns, "image");
-	imageElement.setAttributeNS(xlinkns,'href',avatar);
-	container.appendChild(imageElement);
-*/
-				setTimeout (null,1000);
+				addImageElement(container.parentNode,avatar,{'x':box.x + box.width / 2,'y': box.y + box.height});
 			}
 		}
 	}
