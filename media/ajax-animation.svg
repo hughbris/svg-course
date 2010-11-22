@@ -23,6 +23,7 @@
 		return ro;
 	}
  
+	//next line and function stubs copied from David's examples
 	var http = createRequestObject();
 
 	function send() {
