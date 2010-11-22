@@ -42,10 +42,11 @@
 		if (http.readyState == 4) {
 			var r = http.responseXML;
 			var container = document.getElementById("canvas");
+			var box = container.getBBox();
 
 			var statuses = r.documentElement.getElementsByTagName("status");
 			for (status in statuses) {
-				var box = container.getBBox();
+
 				//alert(dent);
 				var dent = statuses[status].getElementsByTagName("text")[0].firstChild.nodeValue;
 				var myNewTextElement = addTextElement(container.parentNode,dent,{'x':box.x + box.width / 2,'y': box.y + box.height});
